@@ -7,7 +7,7 @@ function printNumbers(numbers) {
 }
 
 // Q: Given an array of numbers, what is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(n)
 
 
 // 2) You are challenged to find the 4th element of the array, and you came up with this solution:
@@ -27,7 +27,7 @@ function findFourth(numbers) {
 }
 
 // Q: Given an array of numbers, what is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(log n)
 
 
 // 3) -------------------------------------------------------
@@ -37,7 +37,7 @@ function printA() {
     }
 }
 // Q: What is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(1)
 
 
 // 4) -------------------------------------------------------
@@ -47,7 +47,7 @@ function printB(number) {
   }
 }
 // Q: What is the space complexity of the function?
-// ANSWER:
+// ANSWER: O(n)
 
 
 // 5) -------------------------------------------------------
@@ -59,7 +59,7 @@ function printC(num, arr) {
   }
 }
 // Q: What is the space complexity of the function?
-// ANSWER:
+// ANSWER: O(n^2)
 
 
 // 6) -------------------------------------------------------
@@ -72,7 +72,7 @@ function nested(numbers) {
 }
 
 // Q: What is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(n^2)
 
 
 // 7) -------------------------------------------------------
@@ -83,7 +83,7 @@ let newNumbersA = numbers.filter((num) => {
 })
 
 // Q: What is the space complexity of the filter higher-order function?
-// ANSWER:
+// ANSWER: O(n)
 
 
 // 8) -------------------------------------------------------
@@ -92,7 +92,7 @@ let newNumbersB = numbers.map((num) => {
   return num * 3
 })
 // Q: What is the space complexity of the map higher-order function?
-// ANSWER:
+// ANSWER: O(n)
 
 
 // 9) -------------------------------------------------------
@@ -109,7 +109,7 @@ function arrInception(parentArr) {
   }
 }
 // Q: What is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(n^2)
 
 
 // 10) You are challenged to find the squared value of each number in an array. This is not the best solution, but it is what you come up with anyway...
@@ -127,11 +127,17 @@ function getNumbersSquared(numbers) {
 }
 
 // Q: What is the space complexity of this function?
-// ANSWER:
+// ANSWER: O(n)
 
 
 // Q: Is it possible to improve this function's space complexity? If it is, write a new function below.
-// ANSWER:
+// ANSWER: O(n)
+
+function squaredNumber(numArr) {
+  return numArr.map(num => num*num)
+}
+
+console.log(squaredNumber(arr))
 
 
 // 11) Here are two functions that you came up with to count how many of each letter is in a given string and return an object with the individual counts: 
@@ -196,16 +202,16 @@ function countLettersRoundTwo(str) {
 
 
 // Q: Do these functions have the same space complexity?
-// ANSWER:
+// ANSWER: No
 
 
 // Q: What is the space complexity of each? 
-// ANSWER - countLetters:
-// ANSWER - countLettersRoundTwo:
+// ANSWER - countLetters: O(n)
+// ANSWER - countLettersRoundTwo: O(log n)
 
 
 // Q: Explain how you came to your conclusions about the space complexity of each function. 
-// ANSWER: 
+// ANSWER: The first always stores, iterates through, and outputs 26 variables. The second one will only keep and iterate through a subset of the alphabet because of the Regex.
 
 
 // 12) Memoization
@@ -239,8 +245,56 @@ function countLettersRoundTwo(str) {
 */
 
 // CODE HERE 
+class Factorial {
+  constructor() {
+    this.cache = {}
+  }
 
+  calcFac(num) {
+    if(num === this.cache.number) {
+      console.log("Hit if stmt")
+      return this.cache.answer
+    } else {
+      let answer = num
+      for(let i = num; i > 2; i--) {
+        answer *= (i-1)
+      }
+      this.cache = {number: num, answer: answer}
+      return answer
+    }
+}
+}
 
+let calculatedFac = new Factorial
+calculatedFac.calcFac(5)
+calculatedFac.calcFac(5)
+
+//Alternative version
+// class Factorial {
+//   constructor() {
+//     this.cache = {}
+//   }
+
+//   calcFac(num) {
+//     if (this.cache[num] === num) {
+//         return this.cache
+//     }
+
+//     let answer = 1
+
+//     for (let i = 1; i <= num; i++) {
+//       answer = answer * i
+//     }
+      
+//     this.cache[num] = answer
+
+//     return console.log(answer)
+//   }
+// }
+
+// const newFac = new Factorial()
+
+// newFac.calcFac(4)
 /* 
   We want to test a non-memoized version of this too, 
   so copy and paster your calcFac function and save it 
