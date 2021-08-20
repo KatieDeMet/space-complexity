@@ -137,8 +137,6 @@ function squaredNumber(numArr) {
   return numArr.map(num => num*num)
 }
 
-console.log(squaredNumber(arr))
-
 
 // 11) Here are two functions that you came up with to count how many of each letter is in a given string and return an object with the individual counts: 
 
@@ -256,18 +254,14 @@ class Factorial {
       return this.cache.answer
     } else {
       let answer = num
-      for(let i = num; i > 2; i--) {
-        answer *= (i-1)
-      }
+        for(let i = num; i > 2; i--) {
+          answer *= (i-1)
+        }
       this.cache = {number: num, answer: answer}
       return answer
-    }
+      }
+  }
 }
-}
-
-let calculatedFac = new Factorial
-calculatedFac.calcFac(5)
-calculatedFac.calcFac(5)
 
 //Alternative version
 // class Factorial {
@@ -303,9 +297,13 @@ calculatedFac.calcFac(5)
   references to the cache)
 */
 
-// function noCacheCalcFac(num) {
-    //CODE HERE
-// }
+function noCacheCalcFac(num) {
+      let answer = num
+        for(let i = num; i > 2; i--) {
+          answer *= (i-1)
+        }
+      return answer
+}
 
 /*
   The logs below will show you how long these functions
@@ -314,20 +312,20 @@ calculatedFac.calcFac(5)
   (run using 'node index.js' in the terminal)
 */
 
-const myFac = // CREATE A NEW INSTANCE OF THE FACTORIAL CLASS
+const myFac = new Factorial
 
 console.time("not memoized factorial");
-console.log(/* CALL NOCACHECALCFAC PASSING IN 8*/)
-console.log(/* CALL NOCACHECALCFAC PASSING IN 8*/)
-console.log(/* CALL NOCACHECALCFAC PASSING IN 8*/)
-console.log(/* CALL NOCACHECALCFAC PASSING IN 8*/)
+console.log(noCacheCalcFac(8))
+console.log(noCacheCalcFac(8))
+console.log(noCacheCalcFac(8))
+console.log(noCacheCalcFac(8))
 console.timeEnd("not memoized factorial");
 
 console.time("memoized factorial");
-console.log(/* CALL THE CALCFAC METHOD OFF OF MYFAC 8*/)
-console.log(/* CALL THE CALCFAC METHOD OFF OF MYFAC 8*/)
-console.log(/* CALL THE CALCFAC METHOD OFF OF MYFAC 8*/)
-console.log(/* CALL THE CALCFAC METHOD OFF OF MYFAC 8*/)
+console.log(myFac.calcFac(8))
+console.log(myFac.calcFac(8))
+console.log(myFac.calcFac(8))
+console.log(myFac.calcFac(8))
 console.timeEnd("memoized factorial");
 
 // 13) Memoization Challenge
@@ -340,7 +338,21 @@ console.timeEnd("memoized factorial");
   we've covered or come up with your own)
 */
 
-// CODE HERE
+class CacheChallenge {
+  constructor() {
+    this.cache = []
+  }
+
+  numberCubed(num) {
+    if(this.cache[num]) {
+      return this.cache[num]
+    } else {
+      let numCubed = num*num*num
+      this.cache[num] = numCubed
+      return numCubed
+    }
+  }
+}
 
 /*
     Copy and paste the method outside the class and
@@ -348,29 +360,31 @@ console.timeEnd("memoized factorial");
     to the cache)
 */
 
-// CODE HERE 
+const nonMemoizedFunc = (num) => {
+    return num*num*num
+} 
 
 /*
     Before you see how much time they take, make a 
     guess as to if one will be faster.
 */
 
-// ANSWER: 
+// ANSWER: Memoized version should be faster
 
 // Now fill this out and run your file
 
-// CREATE A NEW INSTANCE OF YOUR CLASS
+const fourCubed = new CacheChallenge
 
 console.time("not memoized function time");
-console.log(/* CALL YOUR NONCACHE FN*/)
-console.log(/* CALL YOUR NONCACHE FN*/)
-console.log(/* CALL YOUR NONCACHE FN*/)
-console.log(/* CALL YOUR NONCACHE FN*/)
+console.log(nonMemoizedFunc(4))
+console.log(nonMemoizedFunc(4))
+console.log(nonMemoizedFunc(4))
+console.log(nonMemoizedFunc(4))
 console.timeEnd("not memoized function time");
 
 console.time("memoized function time");
-console.log(/* CALL THE METHOD FROM YOUR CLASS*/)
-console.log(/* CALL THE METHOD FROM YOUR CLASS*/)
-console.log(/* CALL THE METHOD FROM YOUR CLASS*/)
-console.log(/* CALL THE METHOD FROM YOUR CLASS*/)
+console.log(fourCubed.numberCubed(4))
+console.log(fourCubed.numberCubed(4))
+console.log(fourCubed.numberCubed(4))
+console.log(fourCubed.numberCubed(4))
 console.timeEnd("memoized function time");
